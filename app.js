@@ -29,6 +29,8 @@
       count += cart[k].qty;
       total += cart[k].qty * cart[k].price;
     });
+    var badge = document.getElementById('nav-cart-count');
+    if (badge){ badge.textContent = count; badge.hidden = count === 0; }
     var bar = document.getElementById('cartbar');
     if (!bar) return;
     document.getElementById('cartbar-info').textContent = count + (count === 1 ? ' articolo nel carrello' : ' articoli nel carrello');
@@ -86,8 +88,10 @@
 
   document.querySelectorAll('[data-cart-open]').forEach(function(a){
     a.addEventListener('click', function(e){
+      var bar = document.getElementById('cartbar');
+      if (!bar || !bar.classList.contains('show')) { if (a.classList.contains('nav-cart') && /prodotto\.html/.test(location.pathname)) e.preventDefault(); return; }
       e.preventDefault();
-      document.getElementById('cartbar').scrollIntoView({behavior:'smooth', block:'end'});
+      bar.scrollIntoView({behavior:'smooth', block:'end'});
     });
   });
 
