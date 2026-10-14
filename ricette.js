@@ -1,5 +1,6 @@
 (function(){
   var R = window.RICETTE || [], CAT = window.CATEGORIE || {}, NOTE = window.NOTE_CATEGORIE || {};
+  var FEAT = ['bruschette-pomodorini-e-basilico','spaghetti-al-profumo-di-mare-con-s-de-m','orata-al-forno-con-limone-ed-erbe','cioccolato-fondente-olio-evo-e-un-tocco-di-s-de-m'];
   var input = document.getElementById('rc-q');
   var list = document.getElementById('rc-sugg');
   var out = document.getElementById('rc-out');
@@ -51,12 +52,17 @@
       html = '<div class="rc-head"><h2>Risultati per “'+esc(q.trim())+'”</h2><p>'+items.length+(items.length===1?' ricetta trovata':' ricette trovate')+'</p></div>';
       html += items.length ? '<div class="rc-grid">'+items.map(card).join('')+'</div>'
         : '<p class="rc-empty">Nessuna ricetta trovata. Prova con un altro ingrediente, ad esempio “pesce”, “spinaci” o “cioccolato”.</p>';
+    } else if (activeCat==='tutte') {
+      var feat = FEAT.map(function(id){ return R.filter(function(r){ return r.id===id; })[0]; }).filter(Boolean);
+      html = '<section class="rc-block"><div class="rc-head"><h2>In evidenza</h2><p>Qualche idea per iniziare</p></div><div class="rc-grid rc-grid4">'+feat.map(card).join('')+'</div></section>';
+      html += '<section class="rc-block"><div class="rc-head"><h2>Sfoglia per categoria</h2><p>'+R.length+' ricette</p></div><div class="rc-cats">'
+        + Object.keys(CAT).map(function(k){
+            var its = R.filter(function(r){ return r.cat===k; });
+            return '<button type="button" class="rc-cat" data-go="'+k+'"><img src="'+its[0].img+'" alt=""><span class="rc-cat-t"><strong>'+CAT[k]+'</strong><em>'+its.length+' ricette</em></span></button>';
+          }).join('')+'</div></section>';
     } else {
-      Object.keys(CAT).forEach(function(k){
-        if (activeCat!=='tutte' && activeCat!==k) return;
-        var its = R.filter(function(r){ return r.cat===k; });
-        html += '<section class="rc-block" id="cat-'+k+'"><div class="rc-head"><h2>'+CAT[k]+'</h2><p>'+its.length+' ricette</p></div>'+(NOTE[k]?'<p class="rc-catnote">'+esc(NOTE[k])+'</p>':'')+'<div class="rc-grid">'+its.map(card).join('')+'</div></section>';
-      });
+      var k = activeCat, its = R.filter(function(r){ return r.cat===k; });
+      html = '<section class="rc-block" id="cat-'+k+'"><div class="rc-head"><h2>'+CAT[k]+'</h2><p>'+its.length+' ricette</p></div>'+(NOTE[k]?'<p class="rc-catnote">'+esc(NOTE[k])+'</p>':'')+'<div class="rc-grid">'+its.map(card).join('')+'</div></section>';
     }
     out.innerHTML = html;
   }
@@ -95,7 +101,7 @@
     document.getElementById('rc-m-steps').innerHTML = r.steps.map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
     var box = document.getElementById('rc-m-dose');
     if (r.dose){
-      var h = '<strong>SÂ DE MÂ al posto del sale aggiunto</strong><p class="rc-dose">'+esc(r.dose)+'</p>';
+      var h = '<strong>'+esc(r.doseTitle||'SÂ DE MÂ al posto del sale aggiunto')+'</strong><p class="rc-dose">'+esc(r.dose)+'</p>';
       h += '<p class="rc-stato"><em>Stato della dose.</em> '+esc(r.stato||'Dose iniziale da provare in cucina.')+'</p>';
       if (r.ref) h += '<p class="rc-stato"><a href="'+esc(r.ref)+'" target="_blank" rel="noopener">Riferimento consultato</a></p>';
       box.innerHTML = h;
@@ -122,16 +128,16 @@
   document.addEventListener('click', function(e){
     if (!e.target.closest('.rc-search')) closeSugg();
     var c = e.target.closest('.rc-card'); if (c) open(c.getAttribute('data-id'));
+    var go = e.target.closest('[data-go]'); if (go) { setCat(go.getAttribute('data-go')); window.scrollTo({top: out.getBoundingClientRect().top + window.pageYOffset - 90, behavior:'smooth'}); }
     var close = e.target.closest('[data-close]'); if (close && dlg.close) dlg.close();
     if (e.target === dlg && dlg.close) dlg.close();
   });
   document.getElementById('rc-clear').addEventListener('click', function(){ input.value=''; closeSugg(); render(); input.focus(); });
-  chips.forEach(function(ch){
-    ch.addEventListener('click', function(){
-      activeCat = ch.getAttribute('data-cat');
-      chips.forEach(function(c){ c.classList.toggle('on', c===ch); c.setAttribute('aria-pressed', c===ch); });
-      render();
-    });
-  });
+  function setCat(k){
+    activeCat = k;
+    chips.forEach(function(c){ var on = c.getAttribute('data-cat')===k; c.classList.toggle('on', on); c.setAttribute('aria-pressed', on); });
+    render();
+  }
+  chips.forEach(function(ch){ ch.addEventListener('click', function(){ setCat(ch.getAttribute('data-cat')); }); });
   render();
 })();
