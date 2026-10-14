@@ -801,3 +801,11 @@
 .pg-hero .mn-rule { margin: 14px 0 20px; }
 .pg-lede { color: #dcebf1; font-size: 1.05rem; line-height: 1.65; max-width: 520px; margin: 0; }
 @media (max-width: 900px) { .pg-hero .mn-hero-in { padding-top: 36px; padding-bottom: 40px; } }
+
+/* Home: sfumatura color mare sotto la barra di navigazione */
+.hero { position: relative; }
+.hero::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -18px; height: 260px; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, #6fb1c6 0%, #9fd0de 30%, #c9e5ec 60%, #e8f4f6 84%, rgba(250,248,243,0) 100%);
+}
+.hero > .hero-stage { position: relative; z-index: 1; }
