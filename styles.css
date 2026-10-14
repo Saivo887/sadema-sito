@@ -613,3 +613,58 @@
   .mg-funcs img { width: 78px; height: 105px; flex-basis: 78px; }
 }
 .mg section { padding: 0; }
+
+/* ---------- PAGINE MINERALI (nuovo layout) ---------- */
+.mn section { padding: 0; }
+.mn h1, .mn h2, .mn h3 { font-family: 'Fraunces', serif; color: var(--sea-deep); }
+.mn-rule { width: 34px; height: 2px; background: #c9a56a; margin: 12px 0 18px; }
+.mn-hero { position: relative; overflow: hidden; background: #0b3a55; color: #fff; }
+.mn-hero-img { position: absolute; top: 0; right: 0; bottom: 0; width: min(62%, 720px); background-size: cover; background-position: center; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 38%); mask-image: linear-gradient(to right, transparent 0, #000 38%); }
+.mn-hero-in { position: relative; padding-top: 30px; padding-bottom: 54px; }
+.mn-back { display: inline-block; margin-bottom: 26px; font-size: 0.86rem; color: #bcd6e3; text-decoration: none; }
+.mn-back:hover { color: #fff; }
+.mn-kicker { font-size: 0.76rem; letter-spacing: .1em; text-transform: uppercase; color: #e0c493; font-weight: 600; margin-bottom: 10px; }
+.mn-hero h1 { color: #fff; font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1.05; margin-bottom: 0; }
+.mn-hero .mn-rule { margin: 14px 0 22px; }
+.mn-sub { font-family: 'Fraunces', serif; font-size: clamp(1.3rem, 2.4vw, 1.75rem); line-height: 1.25; color: #eef5f8; max-width: 560px; margin-bottom: 16px; }
+.mn-lead { max-width: 520px; font-size: 1.02rem; color: #dbe9f0; }
+.mn-sec { padding: 52px 0 !important; }
+.mn-sec h2, .mn-band h2, .mn-close h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; margin: 0; }
+.mn-sec p { color: var(--text-soft); font-size: 1.02rem; margin-bottom: 14px; }
+.mn-two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.mn-photo { width: 100%; max-width: 520px; justify-self: end; border-radius: var(--radius); display: block; }
+.mn-sea .mn-photo { justify-self: start; }
+.mn-band { background: var(--surface-2); padding: 48px 0 !important; }
+.mn-fnsub { color: var(--text-soft); margin: 10px 0 30px; }
+.mn-fn { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.mn-fn4 { grid-template-columns: repeat(4, 1fr); }
+.mn-fn5 { grid-template-columns: repeat(5, 1fr); }
+.mn-fn li { text-align: center; padding: 4px 18px; border-left: 1px solid var(--border); }
+.mn-fn li:first-child { border-left: 0; }
+.mn-ico { display: block; margin: 0 auto 12px; width: 74px; height: 74px; }
+.mn-fn h3 { font-size: 1.12rem; margin-bottom: 8px; }
+.mn-fn p { font-size: 0.92rem; color: var(--text-soft); margin: 0; }
+.mn-where { align-items: start; }
+.mn-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.mn-thumbs figure { margin: 0; text-align: center; }
+.mn-thumbs img { width: 100%; aspect-ratio: 88 / 74; object-fit: cover; border-radius: 8px; display: block; }
+.mn-thumbs figcaption { margin-top: 8px; font-size: 0.8rem; line-height: 1.3; color: var(--sea-deep); }
+.mn-callout { display: flex; gap: 16px; align-items: center; margin-top: 22px; background: #e4eef3; border: 1px solid #d3e2ea; border-radius: var(--radius); padding: 18px 20px; }
+.mn-wave { flex: 0 0 54px; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #d3e6ef; }
+.mn-callout h3 { font-size: 1rem; margin-bottom: 4px; }
+.mn-callout p { font-size: 0.9rem; margin: 0; }
+.mn-close { padding-top: 12px !important; padding-bottom: 72px !important; }
+.mn-close > .wrap > p { max-width: none; }
+.mn-note { display: flex; gap: 14px; align-items: center; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--border); }
+.mn-note p { margin: 0; font-size: 0.8rem; }
+@media (max-width: 900px) {
+  .mn-hero-img { width: 100%; opacity: .3; -webkit-mask-image: none; mask-image: none; }
+  .mn-hero-in { padding-bottom: 40px; }
+  .mn-two { grid-template-columns: 1fr; gap: 26px; }
+  .mn-photo, .mn-sea .mn-photo { justify-self: stretch; max-width: none; }
+  .mn-sea .mn-photo { order: 2; }
+  .mn-fn4, .mn-fn5 { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
+  .mn-fn li:nth-child(odd) { border-left: 0; }
+  .mn-thumbs { grid-template-columns: repeat(3, 1fr); }
+  .mn-sec { padding: 36px 0 !important; }
+}
