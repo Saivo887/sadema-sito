@@ -116,6 +116,20 @@
   window.addEventListener('resize', function(){ if (window.innerWidth > 900) setOpen(false); });
 })();
 
+// Slide della pagina La storia: scorrono da sole
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var box = document.querySelector('.story-slider');
+  if (!box || reduce) return;
+  var track = box.querySelector('.slider-track');
+  var n = box.querySelectorAll('.slide').length, i = 0;
+  if (n < 2) return;
+  setInterval(function(){
+    i = (i + 1) % n;
+    track.style.transform = 'translateX(' + (-100 * i) + '%)';
+  }, 5000);
+})();
+
 // Slide laterali della home: scorrono da sole, senza controlli.
 // Le due in alto (sinistra e destra) si muovono insieme; le due in basso insieme, sfasate.
 (function(){
