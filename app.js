@@ -93,3 +93,21 @@
 
   renderCart();
 })();
+
+// Menu mobile (tre linee)
+(function(){
+  var header = document.querySelector('header.nav');
+  var btn = document.querySelector('.nav-toggle');
+  if (!header || !btn) return;
+  function setOpen(open){
+    header.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu');
+  }
+  btn.addEventListener('click', function(){ setOpen(!header.classList.contains('open')); });
+  document.querySelectorAll('.navlinks a').forEach(function(a){
+    a.addEventListener('click', function(){ setOpen(false); });
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setOpen(false); });
+  window.addEventListener('resize', function(){ if (window.innerWidth > 900) setOpen(false); });
+})();
