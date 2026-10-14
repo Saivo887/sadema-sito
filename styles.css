@@ -272,10 +272,13 @@
 
   /* ---------- PRODUCT / VARIANTS ---------- */
   .products {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
   }
+  .products .card-media { height: 340px; min-height: 0; box-sizing: border-box; padding-bottom: 0; }
+  .products .card { flex: 0 1 calc((100% - 64px) / 3); min-width: 280px; }
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -493,7 +496,7 @@
     .hero-copy { padding: 40px 24px 56px; }
     .storia { grid-template-columns: 1fr; }
     .storia-media { order: -1; }
-    .products { grid-template-columns: 1fr; }
+    .products .card { flex: 1 1 100%; }
     .minerali-grid { grid-template-columns: repeat(2, 1fr); }
     .uso-list { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr; gap: 30px; }
