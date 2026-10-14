@@ -77,16 +77,18 @@
 
 <dialog id="rc-modal" class="rc-modal" aria-labelledby="rc-m-title">
   <button type="button" class="rc-x" data-close aria-label="Chiudi">×</button>
-  <img id="rc-m-img" src="" alt="">
+  <figure class="rc-m-fig"><img id="rc-m-img" src="" alt=""><figcaption id="rc-m-img-note" hidden>Immagine illustrativa</figcaption></figure>
   <div class="rc-m-body">
     <span class="rc-tag" id="rc-m-tag"></span>
     <h2 id="rc-m-title"></h2>
-    <p class="rc-meta" id="rc-m-meta"></p>
+    <p class="rc-m-desc" id="rc-m-desc"></p>
+    <dl class="rc-facts" id="rc-m-facts"></dl>
     <div class="rc-m-cols">
       <div><h3>Ingredienti</h3><ul id="rc-m-ingr"></ul></div>
-      <div><h3>Preparazione</h3><ol id="rc-m-steps"></ol></div>
+      <div><h3>Procedimento</h3><ol id="rc-m-steps"></ol></div>
     </div>
-    <div class="rc-m-tip"><strong>Consiglio</strong><p id="rc-m-tip"></p></div>
+    <div class="rc-m-tip" id="rc-m-dose"></div>
+    <p class="rc-m-safe">Usa esclusivamente acqua di mare trattata e certificata idonea al consumo alimentare. Assaggia sempre prima di aggiungere altro sale, soprattutto con formaggi, olive, capperi, conserve, crostacei e molluschi. Pesce e molluschi vanno cotti e conservati nel rispetto delle normali regole di sicurezza alimentare.</p>
   </div>
 </dialog>
 

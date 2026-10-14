@@ -1,5 +1,5 @@
 (function(){
-  var R = window.RICETTE || [], CAT = window.CATEGORIE || {};
+  var R = window.RICETTE || [], CAT = window.CATEGORIE || {}, NOTE = window.NOTE_CATEGORIE || {};
   var input = document.getElementById('rc-q');
   var list = document.getElementById('rc-sugg');
   var out = document.getElementById('rc-out');
@@ -9,7 +9,9 @@
 
   function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim(); }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
-  R.forEach(function(r){ r._t = norm(r.title); r._all = norm(r.title+' '+r.tags+' '+r.ingr.join(' ')+' '+(CAT[r.cat]||'')); });
+  function ingName(i){ return Array.isArray(i) ? i[0] : i; }
+  function ingText(i){ return Array.isArray(i) ? '<strong>'+esc(i[0])+'</strong><span>'+esc(i[1].length<=14 ? i[1].replace(/ /g,'\u00a0') : i[1])+'</span>' : esc(i); }
+  R.forEach(function(r){ r._t = norm(r.title); r._all = norm(r.title+' '+r.tags+' '+r.ingr.map(ingName).join(' ')+' '+(CAT[r.cat]||'')); });
 
   function score(r, q){
     var words = r._t.split(' '), s = 0;
@@ -40,7 +42,7 @@
       + '<img src="'+r.img+'" alt="" loading="lazy">'
       + '<span class="rc-card-body"><span class="rc-tag">'+esc(CAT[r.cat])+'</span>'
       + '<h3>'+esc(r.title)+'</h3><p>'+esc(r.desc)+'</p>'
-      + '<span class="rc-meta">'+esc(r.time)+' · '+r.serves+' persone · '+esc(r.level)+'</span></span></button>';
+      + '<span class="rc-meta">'+esc(r.time)+' · '+r.serves+' porzioni · '+esc(r.level)+'</span></span></button>';
   }
   function render(){
     var q = input.value, items, html = '';
@@ -53,7 +55,7 @@
       Object.keys(CAT).forEach(function(k){
         if (activeCat!=='tutte' && activeCat!==k) return;
         var its = R.filter(function(r){ return r.cat===k; });
-        html += '<section class="rc-block" id="cat-'+k+'"><div class="rc-head"><h2>'+CAT[k]+'</h2><p>'+its.length+' ricette</p></div><div class="rc-grid">'+its.map(card).join('')+'</div></section>';
+        html += '<section class="rc-block" id="cat-'+k+'"><div class="rc-head"><h2>'+CAT[k]+'</h2><p>'+its.length+' ricette</p></div>'+(NOTE[k]?'<p class="rc-catnote">'+esc(NOTE[k])+'</p>':'')+'<div class="rc-grid">'+its.map(card).join('')+'</div></section>';
       });
     }
     out.innerHTML = html;
@@ -84,10 +86,23 @@
     document.getElementById('rc-m-img').src = r.img;
     document.getElementById('rc-m-tag').textContent = CAT[r.cat];
     document.getElementById('rc-m-title').textContent = r.title;
-    document.getElementById('rc-m-meta').textContent = r.time+' · '+r.serves+' persone · '+r.level;
-    document.getElementById('rc-m-ingr').innerHTML = r.ingr.map(function(i){return '<li>'+esc(i)+'</li>';}).join('');
-    document.getElementById('rc-m-steps').innerHTML = r.steps.map(function(s){return '<li>'+esc(s)+'</li>';}).join('');
-    document.getElementById('rc-m-tip').textContent = r.tip;
+    document.getElementById('rc-m-desc').textContent = r.desc || '';
+    var facts = [];
+    if (r.prep) facts.push(['Preparazione', r.prep], ['Cottura', r.cook]); else facts.push(['Tempo', r.time]);
+    facts.push(['Porzioni', String(r.serves)], ['Difficoltà', r.level]);
+    document.getElementById('rc-m-facts').innerHTML = facts.map(function(f){ return '<div><dt>'+f[0]+'</dt><dd>'+esc(f[1])+'</dd></div>'; }).join('');
+    document.getElementById('rc-m-ingr').innerHTML = r.ingr.map(function(i){return '<li>'+ingText(i)+'</li>';}).join('');
+    document.getElementById('rc-m-steps').innerHTML = r.steps.map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
+    var box = document.getElementById('rc-m-dose');
+    if (r.dose){
+      var h = '<strong>SÂ DE MÂ al posto del sale aggiunto</strong><p class="rc-dose">'+esc(r.dose)+'</p>';
+      h += '<p class="rc-stato"><em>Stato della dose.</em> '+esc(r.stato||'Dose iniziale da provare in cucina.')+'</p>';
+      if (r.ref) h += '<p class="rc-stato"><a href="'+esc(r.ref)+'" target="_blank" rel="noopener">Riferimento consultato</a></p>';
+      box.innerHTML = h;
+    } else {
+      box.innerHTML = '<strong>Consiglio</strong><p>'+esc(r.consiglio||'')+'</p>';
+    }
+    document.getElementById('rc-m-img-note').hidden = !r.imgQuery;
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
   }
 
