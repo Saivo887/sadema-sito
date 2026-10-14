@@ -102,8 +102,6 @@
     var box = document.getElementById('rc-m-dose');
     if (r.dose){
       var h = '<strong>'+esc(r.doseTitle||'SÂ DE MÂ al posto del sale aggiunto')+'</strong><p class="rc-dose">'+esc(r.dose)+'</p>';
-      h += '<p class="rc-stato"><em>Stato della dose.</em> '+esc(r.stato||'Dose iniziale da provare in cucina.')+'</p>';
-      if (r.ref) h += '<p class="rc-stato"><a href="'+esc(r.ref)+'" target="_blank" rel="noopener">Riferimento consultato</a></p>';
       box.innerHTML = h;
     } else {
       box.innerHTML = '<strong>Consiglio</strong><p>'+esc(r.consiglio||'')+'</p>';
