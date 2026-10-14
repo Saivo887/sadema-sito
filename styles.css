@@ -357,9 +357,11 @@
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
     gap: 56px;
-    align-items: center;
+    align-items: start;
   }
   .storia-media {
+    position: sticky;
+    top: 110px;
     background: var(--sand);
     border-radius: var(--radius);
     padding: 6px;
@@ -499,7 +501,7 @@
   @media (max-width: 900px) {
     .hero-copy { padding: 40px 24px 56px; }
     .storia { grid-template-columns: 1fr; }
-    .storia-media { order: -1; }
+    .storia-media { order: -1; position: static; }
     .products .card { flex: 1 1 100%; }
     .products .card-body h3 { min-height: 0; }
     .minerali-grid { grid-template-columns: repeat(2, 1fr); }
