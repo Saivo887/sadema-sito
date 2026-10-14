@@ -111,3 +111,38 @@
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setOpen(false); });
   window.addEventListener('resize', function(){ if (window.innerWidth > 900) setOpen(false); });
 })();
+
+// Slide laterali della home
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.side-slider').forEach(function(box){
+    var track = box.querySelector('.slider-track');
+    var slides = box.querySelectorAll('.slide');
+    var dotsBox = box.querySelector('.slider-dots');
+    if (!track || slides.length < 2) return;
+    var i = 0, timer = null, paused = false;
+    var dots = [];
+    slides.forEach(function(_, k){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Immagine ' + (k + 1));
+      b.addEventListener('click', function(){ go(k); restart(); });
+      dotsBox.appendChild(b); dots.push(b);
+    });
+    function go(n){
+      i = (n + slides.length) % slides.length;
+      track.style.transform = 'translateX(' + (-100 * i) + '%)';
+      dots.forEach(function(d, k){ d.classList.toggle('on', k === i); });
+    }
+    function restart(){
+      if (timer) clearInterval(timer);
+      if (reduce) return;
+      timer = setInterval(function(){ if (!paused) go(i + 1); }, 4800);
+    }
+    box.addEventListener('mouseenter', function(){ paused = true; });
+    box.addEventListener('mouseleave', function(){ paused = false; });
+    go(0);
+    var delay = parseInt(box.getAttribute('data-delay') || '0', 10);
+    setTimeout(restart, delay);
+  });
+})();
