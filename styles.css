@@ -794,3 +794,10 @@
 .rc-refs a { color: var(--sea-deep); text-decoration-color: var(--terracotta); }
 @media (max-width: 1000px) { .rc-grid4 { grid-template-columns: repeat(2, 1fr); } .rc-cats { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .rc-grid4 { grid-template-columns: 1fr; } }
+
+/* Intestazioni con immagine (Proprietà, La storia) */
+.pg-hero .mn-hero-in { padding-top: 56px; padding-bottom: 60px; }
+.pg-hero h1 { max-width: 640px; }
+.pg-hero .mn-rule { margin: 14px 0 20px; }
+.pg-lede { color: #dcebf1; font-size: 1.05rem; line-height: 1.65; max-width: 520px; margin: 0; }
+@media (max-width: 900px) { .pg-hero .mn-hero-in { padding-top: 36px; padding-bottom: 40px; } }
