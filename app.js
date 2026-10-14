@@ -82,7 +82,7 @@
       if (Object.keys(cart).length === 0) return;
       var body = buildOrderSummary();
       var subject = 'Nuovo ordine SÂ DE MÂ';
-      window.location.href = 'mailto:ordini@sadema.it?subject=' + encodeURIComponent(subject) + '&body=' + body;
+      window.location.href = 'mailto:info@sa-de-ma.it?subject=' + encodeURIComponent(subject) + '&body=' + body;
     });
   }
 
