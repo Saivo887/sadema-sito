@@ -809,3 +809,28 @@
   background: linear-gradient(180deg, #6fb1c6 0%, #9fd0de 30%, #c9e5ec 60%, #e8f4f6 84%, rgba(250,248,243,0) 100%);
 }
 .hero > .hero-stage { position: relative; z-index: 1; }
+
+/* Home: niente foto laterali, immagini dei prodotti sfumate sullo sfondo */
+.hero { overflow: hidden; }
+.hero-stage { display: block; max-width: 880px; }
+.home-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.hb { position: absolute; opacity: var(--o, .3); transform: rotate(var(--r, 0deg));
+  filter: blur(2px) saturate(.62) brightness(1.05);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 26%, #000 74%, transparent), linear-gradient(to bottom, transparent, #000 26%, #000 74%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 26%, #000 74%, transparent), linear-gradient(to bottom, transparent, #000 26%, #000 74%, transparent);
+  mask-composite: intersect;
+  animation: hbFloat 16s ease-in-out infinite; }
+.hb img { display: block; width: 100%; height: auto; }
+.hb.b2 { animation-duration: 19s; animation-delay: -4s; }
+.hb.b3 { animation-duration: 21s; animation-delay: -9s; }
+.hb.b5 { animation-duration: 18s; animation-delay: -6s; }
+.hb.b8 { animation-duration: 23s; animation-delay: -12s; }
+@keyframes hbFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+@media (prefers-reduced-motion: reduce) { .hb { animation: none; } }
+@media (max-width: 900px) {
+  .hb.b4, .hb.b7 { display: none; }
+  .hb { --o: .2; }
+  .hb.b1 { width: 38% !important; } .hb.b2 { width: 44% !important; top: 6% !important; }
+  .hb.b3 { width: 40% !important; } .hb.b5 { width: 38% !important; } .hb.b8 { width: 44% !important; }
+}
