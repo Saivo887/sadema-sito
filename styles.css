@@ -834,3 +834,22 @@
   .hb.b1 { width: 38% !important; } .hb.b2 { width: 44% !important; top: 6% !important; }
   .hb.b3 { width: 40% !important; } .hb.b5 { width: 38% !important; } .hb.b8 { width: 44% !important; }
 }
+
+/* Chip-link "Consigli per dosaggi" e pagina dosaggi */
+.rc-chips a.rc-chip-link, .dz-jump a { font: inherit; font-size: 0.92rem; padding: 9px 20px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--sea-deep); text-decoration: none; transition: background .2s, color .2s; }
+.rc-chips a.rc-chip-link { border-color: var(--terracotta); color: var(--terracotta); }
+.rc-chips a.rc-chip-link:hover { background: var(--terracotta); color: #fff; }
+.dz-jump a:hover { background: var(--sky-pale); }
+.dz-jump a.dz-back { margin-left: auto; border-style: dashed; }
+.dz-intro { color: var(--text-soft); max-width: 720px; margin: 0 0 24px; }
+.dz-intro a { color: var(--sea-deep); text-decoration-color: var(--terracotta); }
+.dz-sec { margin-top: 38px; scroll-margin-top: 90px; }
+.dz-sec h2 { font-size: clamp(1.5rem, 2.8vw, 2rem); margin: 0 0 18px; }
+.dz-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.dz-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 24px 24px 22px; display: flex; flex-direction: column; }
+.dz-card h3 { margin: 0 0 4px; font-size: 1.25rem; color: var(--sea-deep); }
+.dz-base { margin: 0 0 14px; font-size: 0.86rem; color: var(--text-soft); }
+.dz-dose { margin: 0 0 8px; padding: 10px 14px; background: var(--sky-pale); border-left: 3px solid var(--terracotta); border-radius: 0 8px 8px 0; color: var(--sea-deep); font-size: 0.95rem; line-height: 1.5; }
+.dz-note { margin: 8px 0 0; font-size: 0.9rem; color: var(--text-soft); line-height: 1.6; }
+@media (max-width: 1000px) { .dz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .dz-grid { grid-template-columns: 1fr; } .dz-jump a.dz-back { margin-left: 0; } }
